@@ -1,0 +1,120 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Comments {
+  id           Int       @id @default(autoincrement())
+  job_id       Int?
+  user_id      Int?
+  comment_date DateTime? @default(now()) @db.DateTime(0)
+  content      String    @db.Text
+  stars        Int?
+  Jobs         Jobs?     @relation(fields: [job_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "Comments_ibfk_1")
+  Users        Users?    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "Comments_ibfk_2")
+
+  @@index([job_id], map: "job_id")
+  @@index([user_id], map: "user_id")
+}
+
+model JobHires {
+  id           Int       @id @default(autoincrement())
+  job_id       Int?
+  user_id      Int?
+  hire_date    DateTime? @default(now()) @db.DateTime(0)
+  is_completed Boolean?  @default(false)
+  Jobs         Jobs?     @relation(fields: [job_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "JobHires_ibfk_1")
+  Users        Users?    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "JobHires_ibfk_2")
+
+  @@index([job_id], map: "job_id")
+  @@index([user_id], map: "user_id")
+}
+
+model JobTypeDetails {
+  id          Int         @id @default(autoincrement())
+  name        String      @db.VarChar(255)
+  image       String?     @db.VarChar(255)
+  job_type_id Int?
+  JobTypes    JobTypes?   @relation(fields: [job_type_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "JobTypeDetails_ibfk_1")
+  Jobs        Jobs[]
+  jobDetail   jobDetail[]
+
+  @@index([job_type_id], map: "job_type_id")
+}
+
+model JobTypes {
+  id             Int              @id @default(autoincrement())
+  name           String           @db.VarChar(255)
+  JobTypeDetails JobTypeDetails[]
+}
+
+model Jobs {
+  id                 Int             @id @default(autoincrement())
+  name               String          @db.VarChar(255)
+  rating             Int?
+  price              Int
+  image              String?         @db.VarChar(255)
+  description        String?         @db.Text
+  short_description  String?         @db.Text
+  stars              Int?
+  job_type_detail_id Int?
+  creator_id         Int?
+  Comments           Comments[]
+  JobHires           JobHires[]
+  JobTypeDetails     JobTypeDetails? @relation(fields: [job_type_detail_id], references: [id], onUpdate: NoAction, map: "Jobs_ibfk_1")
+  Users              Users?          @relation(fields: [creator_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "Jobs_ibfk_2")
+
+  @@index([creator_id], map: "creator_id")
+  @@index([job_type_detail_id], map: "job_type_detail_id")
+}
+
+model Users {
+  id            Int           @id @default(autoincrement())
+  name          String        @db.VarChar(255)
+  email         String        @unique(map: "email") @db.VarChar(255)
+  password      String        @db.VarChar(255)
+  phone         String?       @db.VarChar(20)
+  birth_day     String?       @db.VarChar(20)
+  gender        Users_gender? @default(other)
+  role          Users_role?   @default(buyer)
+  skill         String?       @db.VarChar(255)
+  certification String?       @db.VarChar(255)
+  avatar        String?       @db.VarChar(255)
+  Comments      Comments[]
+  JobHires      JobHires[]
+  Jobs          Jobs[]
+}
+
+model detail {
+  id          Int         @id @default(autoincrement())
+  detail_name String      @db.VarChar(255)
+  jobDetail   jobDetail[]
+}
+
+model jobDetail {
+  id                 Int             @id @default(autoincrement())
+  job_type_detail_id Int?
+  detail_id          Int?
+  JobTypeDetails     JobTypeDetails? @relation(fields: [job_type_detail_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "jobDetail_ibfk_1")
+  detail             detail?         @relation(fields: [detail_id], references: [id], onDelete: Cascade, onUpdate: NoAction, map: "jobDetail_ibfk_2")
+
+  @@index([detail_id], map: "detail_id")
+  @@index([job_type_detail_id], map: "job_type_detail_id")
+}
+
+enum Users_gender {
+  male
+  female
+  other
+}
+
+enum Users_role {
+  buyer
+  seller
+  admin
+  moderator
+}
