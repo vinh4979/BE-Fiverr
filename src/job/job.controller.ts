@@ -13,6 +13,9 @@ export class JobController {
   constructor(private readonly jobService: JobService) {}
 
   @Get()
+  @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Lấy danh sách công việc' })
   async findAll() {
     return this.jobService.findAll();
   }

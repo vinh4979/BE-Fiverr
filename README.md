@@ -1,85 +1,88 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Fiverr Clone API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Đây là dự án backend cho một ứng dụng clone của Fiverr, được phát triển như một dự án cuối khóa cho Cybersoft Academy.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Công nghệ sử dụng
 
-## Description
+- NestJS: Framework backend cho Node.js
+- Prisma: ORM (Object-Relational Mapping) để tương tác với cơ sở dữ liệu
+- PostgreSQL: Hệ quản trị cơ sở dữ liệu
+- JWT: JSON Web Tokens cho xác thực người dùng
+- Swagger: Tạo tài liệu API tự động
+- Cloudinary: Dịch vụ lưu trữ và quản lý hình ảnh
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Cài đặt
 
-## Project setup
+1. Clone repository
+2. Cài đặt các dependencies: `npm install`
+3. Tạo file `.env` và cấu hình các biến môi trường cần thiết
+4. Chạy migration Prisma: `npx prisma migrate dev`
+5. Khởi động server: `npm run start:dev`
 
-```bash
-$ yarn install
-```
+## API Endpoints
 
-## Compile and run the project
+### Auth
 
-```bash
-# development
-$ yarn run start
+- POST /auth/register: Đăng ký tài khoản mới
+- POST /auth/login: Đăng nhập và nhận token JWT
 
-# watch mode
-$ yarn run start:dev
+### Users
 
-# production mode
-$ yarn run start:prod
-```
+- GET /users: Lấy danh sách người dùng
+- GET /users/:id: Lấy thông tin người dùng theo ID
+- PATCH /users: Cập nhật thông tin người dùng
+- DELETE /users/:id: Xóa người dùng
 
-## Run tests
+### Jobs
 
-```bash
-# unit tests
-$ yarn run test
+- GET /jobs: Lấy danh sách công việc
+- POST /jobs: Tạo công việc mới
+- PATCH /jobs: Cập nhật thông tin công việc
+- DELETE /jobs/:id: Xóa công việc
+- GET /jobs/:id: Lấy thông tin công việc theo ID
+- GET /jobs/type/:typeId: Lấy danh sách công việc theo loại
 
-# e2e tests
-$ yarn run test:e2e
+### Job Types
 
-# test coverage
-$ yarn run test:cov
-```
+- GET /job-type: Lấy danh sách loại công việc
+- POST /job-type: Tạo loại công việc mới
+- PATCH /job-type/:id: Cập nhật thông tin loại công việc
+- DELETE /job-type/:id: Xóa loại công việc
 
-## Resources
+### Job Details
 
-Check out a few resources that may come in handy when working with NestJS:
+- GET /job-detail: Lấy danh sách chi tiết công việc
+- POST /job-detail: Tạo chi tiết công việc mới
+- PUT /job-detail: Cập nhật thông tin chi tiết công việc
+- PUT /job-detail/job-detail: Cập nhật chi tiết của loại công việc
+- PUT /job-detail/update-image: Cập nhật hình ảnh cho chi tiết công việc
+- DELETE /job-detail/job-detail: Xóa chi tiết công việc
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### Job Hire
 
-## Support
+- GET /job-hire: Lấy danh sách công việc đã thuê
+- POST /job-hire: Thuê công việc
+- PATCH /job-hire/complete: Hoàn thành công việc đã thuê
+- GET /job-hire/:id: Lấy thông tin công việc đã thuê theo ID
+- DELETE /job-hire/:id: Xóa công việc đã thuê
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### Comments
 
-## Stay in touch
+- POST /comment: Tạo bình luận mới
+- GET /comment/:jobId: Lấy danh sách bình luận theo công việc
+- PATCH /comment: Cập nhật bình luận
+- DELETE /comment/:id: Xóa bình luận
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## Tài liệu API
 
-## License
+Sau khi khởi động server, bạn có thể truy cập tài liệu API Swagger tại:
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+http://localhost:8080/api
+
+## Đóng góp
+
+Mọi đóng góp đều được hoan nghênh. Vui lòng tạo issue hoặc pull request để đóng góp vào dự án.
+
+## Giấy phép
+
+[MIT](https://choosealicense.com/licenses/mit/)
