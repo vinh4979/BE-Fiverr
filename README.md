@@ -2,6 +2,10 @@
 
 Đây là dự án backend cho một ứng dụng clone của Fiverr, được phát triển như một dự án cuối khóa cho Cybersoft Academy.
 
+
+## Video Demo
+Xem demo của dự án tại: [YouTube](https://youtu.be/IdX5MiXE1kg)
+
 ## Công nghệ sử dụng
 
 - NestJS: Framework backend cho Node.js
@@ -73,16 +77,5 @@
 - PATCH /comment: Cập nhật bình luận
 - DELETE /comment/:id: Xóa bình luận
 
-## Tài liệu API
-
-Sau khi khởi động server, bạn có thể truy cập tài liệu API Swagger tại:
-
-http://localhost:8080/api
-
-## Đóng góp
-
-Mọi đóng góp đều được hoan nghênh. Vui lòng tạo issue hoặc pull request để đóng góp vào dự án.
-
-## Giấy phép
-
-[MIT](https://choosealicense.com/licenses/mit/)
+# Database
+![Database structure](public/imgs/database-fiverr.png)

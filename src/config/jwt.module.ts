@@ -4,7 +4,7 @@ import { JwtModule } from '@nestjs/jwt';
 @Module({
   imports: [
     JwtModule.register({
-      secret: 'SECRET_KEY', // Đảm bảo sử dụng cùng secret key ở mọi nơi
+      secret: 'SECRET_KEY', 
       signOptions: { expiresIn: '1d' },
     }),
   ],
